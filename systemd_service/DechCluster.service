@@ -1,0 +1,22 @@
+[Unit]
+Description=DechCluster
+Wants=autologiccontroller.service
+Wants=weston.service
+After=weston.service
+Wants=gvm-overlay.service
+After=gvm-overlay.service
+
+[Service]
+Type=simple
+Environment=XDG_RUNTIME_DIR=/run/user/0
+Environment=QT_QPA_PLATFORM=wayland
+Environment=QT_QPA_PLATFORM_PLUGIN_PATH=/qt-5.15.2/plugins/platforms/
+Environment=LD_LIBRARY_PATH=/qt-5.15.2/lib/:$LD_LIBRARY_PATH
+Environment=QML_IMPORT_PATH=/qt-5.15.2/qml
+ExecStartPre=/bin/sh /usr/bin/sleep.sh
+ExecStart=/usr/bin/hmi/DechCluster
+Restart=always
+StartLimitInterval=0
+
+[Install]
+WantedBy=multi-user.target

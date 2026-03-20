@@ -1,0 +1,36 @@
+{
+    "unicast":"134.86.56.94",
+    "logging":
+    {
+        "level":"debug",
+        "console":"true"
+    },
+
+    "applications":
+    [
+        {
+            "name":"sample_service",
+            "id":"0x4444"
+        },
+
+        {
+            "name":"sample_client",
+            "id":"0x5555"
+        }
+    ],
+
+    "services":
+    [
+        {
+            "service":"0x1",
+            "instance":"0x1",
+            "unreliable":"30509"
+        }
+    ],
+
+    "routing":"sample_service",
+    "service-discovery":
+    {
+        "enable":"false"
+    }
+}

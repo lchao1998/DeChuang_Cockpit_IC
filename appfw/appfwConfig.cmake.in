@@ -1,0 +1,14 @@
+@PACKAGE_INIT@
+
+# Compute paths
+get_filename_component (APPFW_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+# Legacy variable, no longer used but kept for compatibility
+get_filename_component(APPFW_INCLUDE_DIRS "" PATH)
+
+# Our library dependencies (contains definitions for IMPORTED targets)
+if (NOT TARGET appfw)
+    include ("${APPFW_CMAKE_DIR}/appfwTargets.cmake")
+endif ()
+
+# These are IMPORTED targets created by vsomeipTargets.cmake
+set (APPFW_LIBRARIES appfw boost_thread)

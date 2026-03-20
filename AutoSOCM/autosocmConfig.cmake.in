@@ -1,0 +1,13 @@
+@PACKAGE_INIT@
+
+# Compute paths
+get_filename_component (AUTOSOCM_CMAKE_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH)
+# Legacy variable, no longer used but kept for compatibility
+get_filename_component(AUTOSOCM_INCLUDE_DIRS "" PATH)
+
+# Our library dependencies (contains definitions for IMPORTED targets)
+if (NOT TARGET autosocm)
+    include ("${AUTOSOCM_CMAKE_DIR}/autosocmTargets.cmake")
+endif ()
+
+set (AUTOSOCM_LIBRARIES autosocm vsomeip boost_thread boost_log boost_serialization boost_system)

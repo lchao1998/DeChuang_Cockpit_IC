@@ -1,0 +1,13 @@
+[Unit]
+Description=autologiccontroller
+Wants=autodataservice.service
+
+[Service]
+Type=simple
+Environment=AUTOSOCM_APP_NAME=autologiccontroller
+Environment=VSOMEIP_CONFIGURATION=/usr/etc/vsomeip.json
+ExecStart=/usr/bin/controller/autologiccontroller
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

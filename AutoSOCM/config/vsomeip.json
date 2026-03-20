@@ -1,0 +1,59 @@
+{
+    "unicast":"10.0.3.1",
+    "logging":
+    {
+        "level":"debug",
+        "console":"true"
+    },
+
+    "applications":
+    [
+        {
+            "name":"autodataservice",
+            "id":"0x4444"
+        },
+
+        {
+            "name":"autologiccontroller",
+            "id":"0x5555"
+        },
+        {
+            "name":"autosoundservice",
+            "id":"0x6666"
+        },
+        {
+            "name" : "chime_client",
+            "id" : "0x1344"
+        }
+    ],
+
+    "services":
+    [
+        {
+            "service":"0x2022",
+            "instance":"0x1",
+            "unreliable":"30509"
+        },
+        {
+            "service":"0x1005",
+            "instance":"0x1",
+            "unreliable":"30509"
+        }
+    ],
+
+    "routing":"autodataservice",
+    "service-discovery":
+    {
+        "enable":"true",
+        "multicast" : "10.0.3.2",
+        "port" : "30490",
+        "protocol" : "udp",
+        "initial_delay_min" : "10",
+        "initial_delay_max" : "100",
+        "repetitions_base_delay" : "200",
+        "repetitions_max" : "3",
+        "ttl" : "3",
+        "cyclic_offer_delay" : "2000",
+        "request_response_delay" : "1500"
+    }
+}

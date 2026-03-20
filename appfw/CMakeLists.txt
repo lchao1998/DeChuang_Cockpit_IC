@@ -1,0 +1,76 @@
+cmake_minimum_required(VERSION 2.8)
+
+project(appfw)
+
+set(CMAKE_BUILD_TYPE Debug)
+
+set (APPFW_MAJOR_VERSION 1)
+set (APPFW_MINOR_VERSION 1)
+
+set (APPFW_VERSION ${APPFW_MAJOR_VERSION}.${APPFW_MINOR_VERSION})
+
+set (INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
+set (INSTALL_BIN_DIR bin CACHE PATH "Installation directory for executables")
+set (INSTALL_INCLUDE_DIR include CACHE PATH "Installation directory for header files")
+
+
+FIND_PACKAGE(Boost)
+
+if (WIN32 AND NOT CYGWIN)
+    set (DEF_INSTALL_CMAKE_DIR CMake)
+else ()
+    set (DEF_INSTALL_CMAKE_DIR lib/cmake/${PROJECT_NAME})
+endif ()
+
+set (INSTALL_CMAKE_DIR ${DEF_INSTALL_CMAKE_DIR} CACHE PATH "Installation directory for CMake files")
+
+SET(INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+FIND_PACKAGE(Boost COMPONENTS thread REQUIRED )
+
+INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
+
+INCLUDE_DIRECTORIES( ${INCLUDE_DIR} )
+
+FILE (GLOB_RECURSE APPFW_HEADERS ${CMAKE_CURRENT_SOURCE_DIR} "include/*.h*" )
+FILE (GLOB_RECURSE APPFW_SOURCES ${CMAKE_CURRENT_SOURCE_DIR} "src/*.h*" "src/*.c*" )
+
+ADD_LIBRARY(${PROJECT_NAME} SHARED ${APPFW_HEADERS} ${APPFW_SOURCES} )
+
+SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES VERSION ${APPFW_VERSION})
+
+TARGET_LINK_LIBRARIES(${PROJECT_NAME} PRIVATE ${Boost_LIBRARIES} dl)
+
+# INSTALL
+foreach ( file ${APPFW_HEADERS} )
+    install( FILES ${file} DESTINATION "${INSTALL_INCLUDE_DIR}/appfw" COMPONENT dev)
+endforeach()
+
+SET(TARGETS ${PROJECT_NAME}Targets)
+
+install (
+    TARGETS ${PROJECT_NAME}
+    EXPORT ${TARGETS}
+    LIBRARY DESTINATION "${INSTALL_LIB_DIR}" COMPONENT
+    ARCHIVE DESTINATION "${INSTALL_LIB_DIR}"
+    COMPONENT dev
+)
+
+export (TARGETS ${PROJECT_NAME} FILE ${CMAKE_BINARY_DIR}/${TARGETS}.cmake)
+
+export (PACKAGE ${PROJECT_NAME})
+
+configure_file (appfwConfig.cmake.in ${PROJECT_BINARY_DIR}/appfwConfig.cmake @ONLY)
+
+install (
+    FILES
+    "${PROJECT_BINARY_DIR}/appfwConfig.cmake"
+    DESTINATION "${INSTALL_CMAKE_DIR}"
+    COMPONENT dev
+)
+
+install (
+    EXPORT ${TARGETS}
+    DESTINATION "${INSTALL_CMAKE_DIR}"
+    COMPONENT dev
+)

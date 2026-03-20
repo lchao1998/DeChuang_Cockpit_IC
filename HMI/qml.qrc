@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>content/Adas.ui.qml</file>
+        <file>content/App.qml</file>
+        <file>content/BaseInfo.ui.qml</file>
+        <file>content/Gauge.ui.qml</file>
+        <file>content/Screen01.ui.qml</file>
+        <file>content/Telltale.ui.qml</file>
+        <file>content/ShaderEffects.qml</file>
+        <file>content/ShaderEffectsRight.qml</file>
+        <file>content/MyMotPwrRate.qml</file>
+        <file>content/MyMotPwrRate_Leftprogress.qml</file>
+        <file>content/MyMotPwrRate_Rightprogress.qml</file>
+        <file>content/DIgitDisplay.qml</file>
+    </qresource>
+</RCC>

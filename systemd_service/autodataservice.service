@@ -1,0 +1,12 @@
+[Unit]
+Description=autodataservice
+
+[Service]
+Type=simple
+Environment=AUTOSOCM_APP_NAME=autodataservice
+Environment=VSOMEIP_CONFIGURATION=/usr/etc/vsomeip.json
+ExecStart=/usr/bin/autoservices/autodataservice
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
